@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../../models/login/login_model.dart';
 import '../home/home_screen.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +79,7 @@ class LoginPage extends StatelessWidget {
       // Login bem-sucedido, redirecione para a próxima tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
     } else {
       // Exiba uma mensagem de erro ao usuário
