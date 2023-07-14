@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:monitoralogsguiflutter/screens/dashboard/dashboard_screen.dart';
+
+import '../components/side_menu.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,33 +13,13 @@ class HomeScreen extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              child: Column(
-                children: [
-                  DrawerHeader(
-                    child: Icon(
-                      Icons.abc_sharp,
-                      size: 100,
-                    ),
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(
-                      Icons.dashboard,
-                      color: Colors.white54
-                    ),
-                    title: Text(
-                      'Dashboard',
-                      style: TextStyle(color: Colors.white54),
-                    ),
-                  )
-                ],
-              ),
+              // default flex = 1
+              // and it takes 1/6 part of the screen
+              child: SideMenu(),
             ),
             Expanded(
               flex: 5,
-              child: Container(
-                color: Colors.blue,
-              ),
+              child: DashboardScreen(),
             ),
           ],
         ),
