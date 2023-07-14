@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/login/login_model.dart';
-import '../home/home_screen.dart';
+import '../main/main_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -79,7 +79,7 @@ class LoginScreen extends StatelessWidget {
       // Login bem-sucedido, redirecione para a próxima tela
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const MainScreen()),
       );
     } else {
       // Exiba uma mensagem de erro ao usuário

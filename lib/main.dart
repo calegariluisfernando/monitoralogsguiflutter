@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:monitoralogsguiflutter/constraints.dart';
-import 'package:monitoralogsguiflutter/screens/home/home_screen.dart';
+import 'package:monitoralogsguiflutter/screens/main/main_screen.dart';
 
 import 'screens/login/login_screen.dart';
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
               .apply(bodyColor: Colors.white),
           canvasColor: secondaryColor),
       // home: LoginScreen(),
-      home: HomeScreen(),
+      home: MainScreen(),
     );
   }
 }
