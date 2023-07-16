@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:monitoralogsguiflutter/responsive.dart';
 
 import '../dashboard/dashboard_screen.dart';
 import 'components/side_menu.dart';
@@ -13,7 +14,8 @@ class MainScreen extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
+            if (Responsive.isDesktop(context))
+              Expanded(
               // default flex = 1
               // and it takes 1/6 part of the screen
               child: SideMenu(),

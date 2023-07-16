@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:monitoralogsguiflutter/constraints.dart';
 import 'package:monitoralogsguiflutter/screens/main/main_screen.dart';
 
-import 'screens/login/login_screen.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
