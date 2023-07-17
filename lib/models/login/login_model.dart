@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 class LoginModel extends ChangeNotifier {
-  String email = '';
-  String password = '';
+  String email = '', password = '';
 
   void updateEmail(String value) {
     email = value;
