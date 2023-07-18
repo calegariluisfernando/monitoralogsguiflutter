@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:monitoralogsguiflutter/widgets/responsive/desktop_scaffold.dart';
+import 'package:monitoralogsguiflutter/widgets/responsive/mobile_scaffold.dart';
+import 'package:monitoralogsguiflutter/widgets/responsive/responsive_layout.dart';
+import 'package:monitoralogsguiflutter/widgets/responsive/tablet_scaffold.dart';
 
 import 'dart:convert';
 
+import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:monitoralogsguiflutter/models/user_model.dart';
+
+import 'package:monitoralogsguiflutter/screens/home/home_screen.dart';
 import 'package:monitoralogsguiflutter/screens/login/login_screen.dart';
 
 class CheckUserScreen extends StatefulWidget {
@@ -15,7 +22,7 @@ class CheckUserScreen extends StatefulWidget {
 }
 
 class _CheckUserScreenState extends State<CheckUserScreen> {
-  bool _myState = false;
+  bool _isTokenExists = false;
 
   @override
   void initState() {
@@ -23,46 +30,41 @@ class _CheckUserScreenState extends State<CheckUserScreen> {
     (() async {
       const storage = FlutterSecureStorage();
       String? token = await storage.read(key: 'token');
-      if (token != null) {
-        _obterDadosDoUsuario(token);
-      }
-      setState(() {
-        _myState = token != null;
-      });
     })();
+  }
+
+  void _obterDadosUsuario(
+      BuildContext context, UserModel userModel, String token) async {
+    const url = 'http://localhost:8001/api/auth/me';
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_myState) {
-      return const Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [CircularProgressIndicator()],
-            ),
-          ],
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserModel(id: 0, name: '', email: ''),
         ),
-      );
-    } else {
-      return const LoginScreen();
-    }
-  }
-
-  _obterDadosDoUsuario(String token) async {
-    const url = 'http://localhost:8001/api/auth/me';
-    final response = await http.post(Uri.parse(url), headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    print(response.body);
-    if (response.statusCode == 200) {
-      // Login bem-sucedido, redirecione para a próxima tela
-      Map<String, dynamic> responseData = jsonDecode(response.body);
-      print(responseData);
-    }
+      ],
+      child: Consumer<UserModel>(
+        builder: (context, userModel, child) {
+          return const ResponsiveLayout(
+            mobilescaffold: MobileScaffold(),
+            tabletScaffold: TabletScaffold(),
+            desktopScaffold: DesktopScaffold(),
+          );
+        },
+      ),
+    );
   }
 }
